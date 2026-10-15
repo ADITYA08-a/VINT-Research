@@ -1,0 +1,57 @@
+{
+  "teacher": "SAM-TP pseudo-labels",
+  "evaluated_images": 400,
+  "skipped_images": 0,
+  "unique_trajectories": 100,
+  "training_trajectory_overlap": 0,
+  "image_level": {
+    "multiscale_mae": {
+      "mean": 0.11155768999203972,
+      "std": 0.09211624223230956,
+      "median": 0.08905755814788942
+    },
+    "baseline_mae": {
+      "mean": 0.15471366958588142,
+      "std": 0.07434426391549492,
+      "median": 0.13990023559704012
+    },
+    "multiscale_rmse": {
+      "mean": 0.1739578016548868,
+      "std": 0.09897453479352139,
+      "median": 0.14858664757623066
+    },
+    "baseline_rmse": {
+      "mean": 0.22201968100677014,
+      "std": 0.08079227511467692,
+      "median": 0.2061790543871121
+    },
+    "multiscale_wins_by_mae": 345,
+    "multiscale_win_fraction": 0.8625
+  },
+  "trajectory_level": {
+    "multiscale_mae": {
+      "mean": 0.11155768999203972,
+      "std": 0.04740238673441088,
+      "median": 0.09439207374274872
+    },
+    "baseline_mae": {
+      "mean": 0.15471366958588142,
+      "std": 0.03908366770051492,
+      "median": 0.14629882640764125
+    },
+    "multiscale_rmse": {
+      "mean": 0.1739578016548868,
+      "std": 0.05062022291773074,
+      "median": 0.16047240314465253
+    },
+    "baseline_rmse": {
+      "mean": 0.2220196810067701,
+      "std": 0.04374393610109406,
+      "median": 0.2163129991817096
+    },
+    "multiscale_wins_by_mae": 96,
+    "trajectory_win_fraction": 0.96
+  },
+  "skipped": [],
+  "caveat": "These metrics measure agreement with SAM-TP pseudo-labels, not verified physical traversability."
+}

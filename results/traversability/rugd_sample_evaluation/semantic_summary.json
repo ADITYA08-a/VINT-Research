@@ -1,0 +1,163 @@
+{
+  "dataset": "RUGD sample",
+  "image_count": 26,
+  "ground_proxy_classes": [
+    "asphalt",
+    "concrete",
+    "dirt",
+    "grass",
+    "gravel",
+    "mulch",
+    "sand"
+  ],
+  "obstacle_proxy_classes": [
+    "bicycle",
+    "building",
+    "container/generic-object",
+    "fence",
+    "log",
+    "person",
+    "picnic-table",
+    "pole",
+    "sign",
+    "tree",
+    "vehicle"
+  ],
+  "uncertain_classes": [
+    "bridge",
+    "bush",
+    "rock",
+    "rock-bed",
+    "sky",
+    "void",
+    "water"
+  ],
+  "per_class": {
+    "void": {
+      "pixels": 62,
+      "images_present": 4,
+      "mean_score": 0.4666596381895004
+    },
+    "dirt": {
+      "pixels": 2519,
+      "images_present": 2,
+      "mean_score": 0.3299535378050643
+    },
+    "sand": {
+      "pixels": 17348,
+      "images_present": 2,
+      "mean_score": 0.5062730651531787
+    },
+    "grass": {
+      "pixels": 1896452,
+      "images_present": 23,
+      "mean_score": 0.5415373691989515
+    },
+    "tree": {
+      "pixels": 3898654,
+      "images_present": 26,
+      "mean_score": 0.03209201129440796
+    },
+    "pole": {
+      "pixels": 16447,
+      "images_present": 11,
+      "mean_score": 0.04322010592181552
+    },
+    "water": {
+      "pixels": 6106,
+      "images_present": 2,
+      "mean_score": 0.3393446868886488
+    },
+    "sky": {
+      "pixels": 917902,
+      "images_present": 25,
+      "mean_score": 0.02789742400369734
+    },
+    "vehicle": {
+      "pixels": 39675,
+      "images_present": 6,
+      "mean_score": 0.06369482914156033
+    },
+    "container/generic-object": {
+      "pixels": 15281,
+      "images_present": 6,
+      "mean_score": 0.05488250052910982
+    },
+    "asphalt": {
+      "pixels": 349444,
+      "images_present": 4,
+      "mean_score": 0.6292994383459141
+    },
+    "gravel": {
+      "pixels": 708613,
+      "images_present": 15,
+      "mean_score": 0.6658236416780082
+    },
+    "building": {
+      "pixels": 93758,
+      "images_present": 11,
+      "mean_score": 0.04631447718308702
+    },
+    "mulch": {
+      "pixels": 946356,
+      "images_present": 13,
+      "mean_score": 0.4760679533253155
+    },
+    "rock-bed": {
+      "pixels": 258980,
+      "images_present": 2,
+      "mean_score": 0.6149577790756043
+    },
+    "log": {
+      "pixels": 50835,
+      "images_present": 10,
+      "mean_score": 0.4665350638132854
+    },
+    "bicycle": {
+      "pixels": 0,
+      "images_present": 0,
+      "mean_score": null
+    },
+    "person": {
+      "pixels": 0,
+      "images_present": 0,
+      "mean_score": null
+    },
+    "fence": {
+      "pixels": 91113,
+      "images_present": 5,
+      "mean_score": 0.04845442224542987
+    },
+    "bush": {
+      "pixels": 242705,
+      "images_present": 9,
+      "mean_score": 0.08914620320455752
+    },
+    "sign": {
+      "pixels": 229,
+      "images_present": 3,
+      "mean_score": 0.05296933026292959
+    },
+    "rock": {
+      "pixels": 92249,
+      "images_present": 4,
+      "mean_score": 0.5200278097083507
+    },
+    "bridge": {
+      "pixels": 10619,
+      "images_present": 2,
+      "mean_score": 0.07715475816310872
+    },
+    "concrete": {
+      "pixels": 164593,
+      "images_present": 3,
+      "mean_score": 0.7187219580072729
+    },
+    "picnic-table": {
+      "pixels": 18460,
+      "images_present": 2,
+      "mean_score": 0.09440004135908828
+    }
+  },
+  "interpretation_warning": "These are semantic proxy correlations, not ground-truth traversability metrics. Scores are learned from SAM-TP pseudo-labels. Class membership alone does not establish physical traversability for a particular robot."
+}

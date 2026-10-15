@@ -1,0 +1,30 @@
+{
+  "device": "cuda",
+  "gpu": "NVIDIA RTX A1000",
+  "teacher_parameters": 29662397,
+  "student_parameters": 4902469,
+  "parameter_reduction_percent": 83.47244492749523,
+  "latency_scope": "Model forward only; preprocessing excluded; batch size 1; synchronized timings after warm-up.",
+  "latency": [
+    {
+      "model": "ViNT teacher",
+      "batch_size": 1,
+      "runs": 100,
+      "mean_ms": 5.739908909308724,
+      "median_ms": 5.728402000386268,
+      "p95_ms": 6.081590905523626,
+      "throughput_samples_per_second": 174.21879263244847,
+      "peak_gpu_memory_mb": 153.43359375
+    },
+    {
+      "model": "ViNT student",
+      "batch_size": 1,
+      "runs": 100,
+      "mean_ms": 3.17908724930021,
+      "median_ms": 3.171106000081636,
+      "p95_ms": 3.29227120091673,
+      "throughput_samples_per_second": 314.55569526131217,
+      "peak_gpu_memory_mb": 148.9609375
+    }
+  ]
+}

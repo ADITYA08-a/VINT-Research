@@ -1,0 +1,6 @@
+{
+  "num_examples": 4,
+  "num_waypoints_compared": 20,
+  "mean_teacher_student_waypoint_disagreement": 0.7159137938171625,
+  "median_teacher_student_waypoint_disagreement": 0.43858030438423157
+}

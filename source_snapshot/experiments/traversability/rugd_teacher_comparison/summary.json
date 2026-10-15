@@ -1,0 +1,33 @@
+{
+  "dataset": "RUGD sample",
+  "images_evaluated": 26,
+  "images_missing_teacher": 0,
+  "teacher_maps": "/home/dml/GENIE-SAMTP/experiments/rugd_teacher_maps/maps",
+  "student_output_size": [
+    120,
+    160
+  ],
+  "teacher_resize": "bilinear",
+  "multiscale": {
+    "mae_mean": 0.1557740599203568,
+    "mae_std": 0.056980534854861715,
+    "rmse_mean": 0.2346677012168444,
+    "rmse_std": 0.0702641045105225,
+    "spatial_pearson_mean": 0.8140619497740343,
+    "spatial_pearson_std": 0.12496572544383187,
+    "mean_bias_mean": -0.04912357218563557,
+    "mean_bias_std": 0.10679828034188552
+  },
+  "baseline": {
+    "mae_mean": 0.18286211817310408,
+    "mae_std": 0.04689822956562168,
+    "rmse_mean": 0.25764558750849503,
+    "rmse_std": 0.06199742275310887,
+    "spatial_pearson_mean": 0.7881187994113683,
+    "spatial_pearson_std": 0.1156494844623067,
+    "mean_bias_mean": -0.08078891962157705,
+    "mean_bias_std": 0.11302005900453892
+  },
+  "elapsed_seconds": 8.12,
+  "interpretation": "Metrics measure agreement with SAM-TP pseudo-labels, not physical traversability. Spatial Pearson correlation measures pattern similarity, not score calibration."
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "model": "Teacher",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 5.671184309903765,
+    "median_ms": 5.650930492265616,
+    "p95_ms": 5.7518104033079,
+    "throughput_samples_per_second": 176.33001245501208,
+    "peak_gpu_memory_mb": 195.4609375,
+    "parameters": 29662397
+  },
+  {
+    "model": "V1",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 3.0754826190241147,
+    "median_ms": 3.0632240013801493,
+    "p95_ms": 3.181374941050308,
+    "throughput_samples_per_second": 325.1522196270162,
+    "peak_gpu_memory_mb": 190.61328125,
+    "parameters": 4902469
+  },
+  {
+    "model": "V2",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 3.0712766700889915,
+    "median_ms": 3.0607864900957793,
+    "p95_ms": 3.149880555429263,
+    "throughput_samples_per_second": 325.5974981801378,
+    "peak_gpu_memory_mb": 190.61328125,
+    "parameters": 5366725
+  },
+  {
+    "model": "FastViT V3",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 2.6899384596617892,
+    "median_ms": 2.6712849939940497,
+    "p95_ms": 2.912655646650819,
+    "throughput_samples_per_second": 371.75571671841584,
+    "peak_gpu_memory_mb": 194.07275390625,
+    "parameters": 5537509
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "device": "cuda",
+  "seed": 123,
+  "test_pairs": 512,
+  "parameter_counts": {
+    "Teacher": 29662397,
+    "V1": 4902469,
+    "V2": 5366725,
+    "FastViT V3": 5537509,
+    "Hybrid V4": 10298021
+  },
+  "imitation_metrics": [
+    {
+      "model": "Teacher",
+      "num_test_pairs": 512,
+      "waypoint_mse_vs_teacher": 0.0,
+      "distance_mse_vs_teacher": 0.0,
+      "mean_waypoint_disagreement": 0.0,
+      "median_waypoint_disagreement": 0.0,
+      "p95_waypoint_disagreement": 0.0,
+      "max_waypoint_disagreement": 0.0
+    },
+    {
+      "model": "V1",
+      "num_test_pairs": 512,
+      "waypoint_mse_vs_teacher": 0.6624516919018788,
+      "distance_mse_vs_teacher": 8.478022870663182,
+      "mean_waypoint_disagreement": 0.8325066422361488,
+      "median_waypoint_disagreement": 0.5775889158248901,
+      "p95_waypoint_disagreement": 2.5356675267219533,
+      "max_waypoint_disagreement": 4.947755336761475
+    },
+    {
+      "model": "V2",
+      "num_test_pairs": 512,
+      "waypoint_mse_vs_teacher": 0.5436993663779504,
+      "distance_mse_vs_teacher": 9.333195323013156,
+      "mean_waypoint_disagreement": 0.7542394759629133,
+      "median_waypoint_disagreement": 0.5233711004257202,
+      "p95_waypoint_disagreement": 2.247492599487303,
+      "max_waypoint_disagreement": 4.470308780670166
+    },
+    {
+      "model": "FastViT V3",
+      "num_test_pairs": 512,
+      "waypoint_mse_vs_teacher": 0.5042677146570895,
+      "distance_mse_vs_teacher": 8.586950310377633,
+      "mean_waypoint_disagreement": 0.7056423083604386,
+      "median_waypoint_disagreement": 0.46708789467811584,
+      "p95_waypoint_disagreement": 2.206925094127655,
+      "max_waypoint_disagreement": 5.05316686630249
+    },
+    {
+      "model": "Hybrid V4",
+      "num_test_pairs": 512,
+      "waypoint_mse_vs_teacher": 0.5530369428120139,
+      "distance_mse_vs_teacher": 8.725826362378886,
+      "mean_waypoint_disagreement": 0.7297901808825372,
+      "median_waypoint_disagreement": 0.4621744304895401,
+      "p95_waypoint_disagreement": 2.337440919876098,
+      "max_waypoint_disagreement": 5.178548812866211
+    }
+  ]
+}

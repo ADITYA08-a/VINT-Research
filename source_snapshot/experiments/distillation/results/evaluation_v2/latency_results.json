@@ -1,0 +1,35 @@
+[
+  {
+    "model": "Teacher",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 5.691560080013005,
+    "median_ms": 5.672203493304551,
+    "p95_ms": 5.823304301884491,
+    "throughput_samples_per_second": 175.69875147443142,
+    "peak_gpu_memory_mb": 174.1318359375,
+    "parameters": 29662397
+  },
+  {
+    "model": "V1",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 3.1082328291086014,
+    "median_ms": 3.0915089955669828,
+    "p95_ms": 3.1868371093878523,
+    "throughput_samples_per_second": 321.72622032526,
+    "peak_gpu_memory_mb": 169.6591796875,
+    "parameters": 4902469
+  },
+  {
+    "model": "V2",
+    "batch_size": 1,
+    "runs": 100,
+    "mean_ms": 3.128769891045522,
+    "median_ms": 3.11073349439539,
+    "p95_ms": 3.235162558121374,
+    "throughput_samples_per_second": 319.61442829719766,
+    "peak_gpu_memory_mb": 169.6591796875,
+    "parameters": 5366725
+  }
+]

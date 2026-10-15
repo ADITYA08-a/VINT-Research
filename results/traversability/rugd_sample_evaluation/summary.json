@@ -1,0 +1,10 @@
+{
+  "dataset": "RUGD sample",
+  "image_count": 26,
+  "teacher_maps_generated": false,
+  "teacher_metrics_available": false,
+  "note": "This first pass compares the two decoder predictions on RUGD. SAM-TP teacher inference has not been run. RUGD semantic annotations are not ground-truth traversability scores.",
+  "mean_multiscale_score": 0.2762592566701082,
+  "mean_baseline_score": 0.2445939120191794,
+  "mean_absolute_model_disagreement": 0.08612402614492637
+}

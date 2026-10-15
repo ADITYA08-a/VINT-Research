@@ -1,0 +1,17 @@
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+**/feature_maps.pt
+**/cache/
+**/caches/
+**/data/raw/
+**/datasets/
+**/dataset/

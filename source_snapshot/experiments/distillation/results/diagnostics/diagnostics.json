@@ -1,0 +1,48 @@
+{
+  "pairs": 64,
+  "teacher_distance": {
+    "shape": [
+      64
+    ],
+    "mean": 13.015667878091335,
+    "std": 2.939088544691863,
+    "min": 5.533914089202881,
+    "max": 17.693477630615234
+  },
+  "student_distance": {
+    "shape": [
+      64
+    ],
+    "mean": 12.474002033472061,
+    "std": 1.7859027703498166e-06,
+    "min": 12.4739990234375,
+    "max": 12.474006652832031
+  },
+  "teacher_waypoint_xy": {
+    "shape": [
+      320,
+      2
+    ],
+    "mean": 1.683017725116315,
+    "std": 2.0228400660985297,
+    "min": -2.0101799964904785,
+    "max": 6.716719627380371
+  },
+  "student_waypoint_xy": {
+    "shape": [
+      320,
+      2
+    ],
+    "mean": 1.800403440138325,
+    "std": 1.965141350951928,
+    "min": 0.07068463414907455,
+    "max": 5.572181701660156
+  },
+  "teacher_student_waypoint_error": {
+    "mean": 0.8070194125175476,
+    "median": 0.5712063908576965,
+    "p95": 2.3893561005592354
+  },
+  "student_distance_nearly_constant": true,
+  "student_waypoints_nearly_constant": false
+}

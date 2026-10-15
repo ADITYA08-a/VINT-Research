@@ -1,0 +1,667 @@
+========================================
+1. ORIGINAL REPOSITORY STRUCTURE
+========================================
+deployment/deployment_environment.yaml
+LICENSE
+README.md
+train/README.md
+train/setup.py
+train/train_environment.yml
+
+========================================
+2. SUPPORTING MODEL AND UTILITY FILES
+========================================
+deployment/src/create_topomap.py
+deployment/src/explore.py
+deployment/src/joy_teleop.py
+deployment/src/navigate.py
+deployment/src/pd_controller.py
+deployment/src/ros_data.py
+deployment/src/topic_names.py
+deployment/src/utils.py
+experiments/distillation/compare_real_images.py
+experiments/distillation/compare_teacher_student.py
+experiments/distillation/diagnose_student.py
+experiments/distillation/evaluate_all_students.py
+experiments/distillation/evaluate_teacher_student.py
+experiments/distillation/evaluate_v3.py
+experiments/distillation/evaluate_v4_hybrid.py
+experiments/distillation/student.py
+experiments/distillation/student_v2.py
+experiments/distillation/student_v3.py
+experiments/distillation/student_v4_hybrid.py
+experiments/distillation/student_v4.py
+experiments/distillation/train_distillation.py
+experiments/distillation/train_distillation_v2.py
+experiments/distillation/train_distillation_v3.py
+experiments/distillation/train_distillation_v4_hybrid.py
+experiments/traversability/compare_rugd_teacher.py
+experiments/traversability/evaluate_heldout_400.py
+experiments/traversability/evaluate_pilot.py
+experiments/traversability/evaluate_rugd_sample.py
+experiments/traversability/evaluate_rugd_semantic.py
+experiments/traversability/infer_internet_image.py
+experiments/traversability/integrated/train_conditioned.py
+experiments/traversability/integrated/vint_traversability_aware.py
+experiments/traversability/integrated/vint_traversability_conditioned.py
+experiments/traversability/train_final_baseline_v2.py
+experiments/traversability/train_multiscale_full.py
+experiments/traversability/train_multiscale.py
+experiments/traversability/train_multiscale_v2.py
+experiments/traversability/visualize_go_stanford.py
+experiments/traversability/visualize_multiscale_full.py
+experiments/traversability/visualize_predictions.py
+experiments/traversability/visualize_predictions_v2.py
+extract_vint_features.py
+test_vint_inference.py
+train/data_split.py
+train/process_bag_diff.py
+train/process_bags.py
+train/process_recon.py
+train/setup.py
+train/train.py
+train/vint_train/data/data_utils.py
+train/vint_train/data/__init__.py
+train/vint_train/data/vint_dataset.py
+train/vint_train/__init__.py
+train/vint_train/models/base_model.py
+train/vint_train/models/gnm/gnm.py
+train/vint_train/models/gnm/__init__.py
+train/vint_train/models/gnm/modified_mobilenetv2.py
+train/vint_train/models/__init__.py
+train/vint_train/models/nomad/__init__.py
+train/vint_train/models/nomad/nomad.py
+train/vint_train/models/nomad/nomad_vint.py
+train/vint_train/models/nomad/vib_placeholder.py
+train/vint_train/models/vint/__init__.py
+train/vint_train/models/vint/self_attention.py
+train/vint_train/models/vint/traversability_baseline.py
+train/vint_train/models/vint/vint.py
+train/vint_train/models/vint/vit.py
+train/vint_train/process_data/__init__.py
+train/vint_train/process_data/process_data_utils.py
+train/vint_train/training/__init__.py
+train/vint_train/training/logger.py
+train/vint_train/training/train_eval_loop.py
+train/vint_train/training/train_utils.py
+train/vint_train/visualizing/action_utils.py
+train/vint_train/visualizing/distance_utils.py
+train/vint_train/visualizing/__init__.py
+train/vint_train/visualizing/visualize_utils.py
+traversability_baseline/test_baseline.py
+
+========================================
+3. DISTILLATION IMPORTS AND PATHS
+========================================
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:3:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:4:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:5:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:6:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:8:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:9:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:11:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:12:from student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:20:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:44:    # Load teacher checkpoint without modifying it on disk.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:45:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:46:        TEACHER_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:48:    teacher = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_real_images.py:50:    # Compatibility for serialized Transformer layers from the checkpoint.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:1:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:2:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:4:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:7:TEACHER_PATH = "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:17:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:20:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:23:    teacher = checkpoint["model"]
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:29:    # Load a fresh student. No student checkpoint exists yet.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/compare_teacher_student.py:39:    # ViNT config: width=85, height=64.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:2:import json
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:3:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:5:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:7:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:10:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:13:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:14:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:18:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:44:        TEACHER_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/diagnose_student.py:66:        STUDENT_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:4:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:5:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:7:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:9:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:10:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:11:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:12:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:13:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:15:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:16:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:17:from experiments.distillation.student_v2 import ViNTStudentV2
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:23:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:61:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:64:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:66:    model = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:87:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:90:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:92:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:98:    # The checkpoint contains trained weights; don't download or
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:99:    # initialize ImageNet weights again during evaluation.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:101:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:104:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:106:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_all_students.py:381:            raise FileNotFoundError(f"Missing checkpoint: {path}")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:4:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:5:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:7:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:9:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:10:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:11:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:12:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:13:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:15:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:16:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:21:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:51:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:54:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:56:    model = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:77:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:80:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_teacher_student.py:82:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:4:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:5:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:7:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:9:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:10:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:11:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:12:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:13:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:15:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:16:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:17:from experiments.distillation.student_v2 import ViNTStudentV2
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:18:from experiments.distillation.student_v3 import FastViTStudentV3
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:24:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:63:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:66:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:68:    model = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:89:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:92:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:94:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:100:    # The checkpoint contains trained weights; don't download or
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:101:    # initialize ImageNet weights again during evaluation.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:103:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:106:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:108:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:115:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:116:        V3_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:118:    model.load_state_dict(checkpoint["student_state_dict"])
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v3.py:462:            raise FileNotFoundError(f"Missing checkpoint: {path}")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:4:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:5:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:7:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:9:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:10:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:11:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:12:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:13:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:15:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:16:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:17:from experiments.distillation.student_v2 import ViNTStudentV2
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:18:from experiments.distillation.student_v3 import FastViTStudentV3
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:19:from experiments.distillation.student_v4_hybrid import FastViTStudentV4Hybrid
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:25:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:65:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:68:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:70:    model = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:91:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:94:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:96:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:102:    # The checkpoint contains trained weights; don't download or
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:103:    # initialize ImageNet weights again during evaluation.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:105:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:108:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:110:    state = checkpoint.get("student_state_dict", checkpoint)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:117:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:118:        V3_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:120:    model.load_state_dict(checkpoint["student_state_dict"])
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:128:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:129:        V4_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:131:    model.load_state_dict(checkpoint["student_state_dict"])
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/evaluate_v4_hybrid.py:601:            raise FileNotFoundError(f"Missing checkpoint: {path}")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:1:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:2:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:3:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:4:from torchvision.models import mobilenet_v3_large
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:58:        backbone = mobilenet_v3_large(weights=None)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student.py:136:        # Encode all observations and goals using the same weights.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:1:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:2:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:3:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:4:from torchvision.models import (
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:63:        weights = (
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v2.py:67:        backbone = mobilenet_v3_large(weights=weights)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v3.py:1:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v3.py:2:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v3.py:3:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v3.py:4:import timm
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:1:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:3:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:4:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:5:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:6:import timm
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4_hybrid.py:200:            need_weights=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:1:import time
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:3:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:4:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:5:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:6:import timm
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:168:        attended, attention_weights = self.cross_attention(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/student_v4.py:172:            need_weights=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:3:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:5:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:7:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:10:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:11:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:12:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:14:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:15:from experiments.distillation.student import ViNTStudent
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:19:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:36:    """Image-only dataset: six past/current frames plus a future goal."""
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:88:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:89:        TEACHER_PATH, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:91:    teacher = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:263:        checkpoint = {
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:270:        torch.save(checkpoint, OUT / f"student_epoch_{epoch}.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:275:            torch.save(checkpoint, OUT / "student_best.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation.py:307:    print("Best checkpoint:", (OUT / "student_best.pth").resolve())
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:3:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:5:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:7:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:10:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:11:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:12:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:14:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:15:from experiments.distillation.student_v2 import ViNTStudentV2
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:24:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:121:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:124:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:127:    teacher = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:412:    # pretrained=True uses the weights already downloaded.
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:542:                "New best checkpoint:",
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v2.py:550:    print("Best checkpoint:", (OUT / "student_v2_best.pth").resolve())
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:3:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:5:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:7:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:10:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:11:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:12:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:14:from vint_train.data.data_utils import img_path_to_data
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:15:from experiments.distillation.student_v3 import FastViTStudentV3
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:24:TEACHER_PATH = Path("deployment/model_weights/vint.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:120:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:123:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:126:    teacher = checkpoint["model"].to(device).eval()
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:485:        checkpoint = {
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:492:            "config": {
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:502:        torch.save(checkpoint, epoch_path)
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:506:            torch.save(checkpoint, OUT / "student_v3_best.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:507:            print("New best checkpoint:", OUT / "student_v3_best.pth")
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v3.py:513:    print("Best checkpoint:", (OUT / "student_v3_best.pth").resolve())
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:1:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:3:import random
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:5:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:7:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/distillation/train_distillation_v4_hybrid.py:10:import torch.nn.functional as F
+
+========================================
+4. TRAVERSABILITY IMPORTS AND PATHS
+========================================
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:1:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:2:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:3:import time
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:4:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:5:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:7:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:8:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:9:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:10:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:12:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:13:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:14:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/compare_rugd_teacher.py:257:        "dataset": "RUGD sample",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:1:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:2:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:4:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:5:from collections import defaultdict
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:6:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:8:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:9:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:10:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:11:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:12:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:18:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:19:VINT_CKPT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:27:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:29:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:129:        Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000/manifest.json"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:140:    pretrained = torch.load(VINT_CKPT, map_location="cpu", weights_only=False)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:158:    multi_data = torch.load(MULTI_CKPT, map_location=DEVICE, weights_only=False)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_heldout_400.py:163:    base_data = torch.load(BASE_CKPT, map_location=DEVICE, weights_only=False)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:2:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:3:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:5:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:6:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:7:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:8:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:15:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/pilot_dataset"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:19:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:21:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:24:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:34:with open(REPO / "train/config/vint.yaml") as f:
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:37:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:38:    REPO / "deployment/model_weights/vint.pth",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:40:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:57:vint.load_state_dict(checkpoint["model"].state_dict(), strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_pilot.py:63:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:1:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:4:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:5:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:7:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:8:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:9:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:10:import matplotlib
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:12:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:14:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:15:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:22:VINT_CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:23:VINT_CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:48:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:49:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:63:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:64:        VINT_CHECKPOINT, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:79:        checkpoint["model"].state_dict(), strict=True
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:84:def load_decoder(module, checkpoint_path, decoder_class):
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:88:        checkpoint_path, map_location=DEVICE, weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:91:    # Training saves either a wrapped checkpoint or a raw state_dict.
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:224:                f"{image_path.name} — cross-dataset inference",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_sample.py:263:        "dataset": "RUGD sample",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:1:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:2:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:3:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:4:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:5:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:7:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:8:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:9:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:21:VINT_CKPT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:22:VINT_CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:73:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:74:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:86:    ckpt = torch.load(VINT_CKPT, map_location="cpu", weights_only=False)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:117:    saved = torch.load(DECODER_CKPT, map_location=DEVICE, weights_only=False)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/evaluate_rugd_semantic.py:233:        "dataset": "RUGD sample",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:1:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:2:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:3:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:5:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:6:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:7:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:8:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:16:VINT_CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:17:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:36:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:37:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:51:vint_checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:52:    VINT_CHECKPOINT, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:66:vint.load_state_dict(vint_checkpoint["model"].state_dict(), strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:70:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:71:    DECODER_CHECKPOINT, map_location=DEVICE, weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/infer_internet_image.py:74:decoder.load_state_dict(checkpoint["decoder"], strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:3:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:8:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:9:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:10:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:12:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:13:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:14:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:23:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:26:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:27:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:50:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:52:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:59:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:62:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_final_baseline_v2.py:78:        checkpoint["model"].state_dict(),
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:3:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:8:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:9:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:10:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:12:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:13:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:14:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:23:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:26:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:27:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:50:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:52:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:59:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:62:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_full.py:78:        checkpoint["model"].state_dict(),
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:3:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:8:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:9:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:10:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:12:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:13:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:14:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:23:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/pilot_dataset"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:26:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:27:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:50:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:52:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:59:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:62:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale.py:78:        checkpoint["model"].state_dict(),
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:3:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:8:import torch.nn as nn
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:9:import torch.nn.functional as F
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:10:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:12:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:13:from torch.utils.data import Dataset, DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:14:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:23:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:26:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:27:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:50:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:52:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:59:    checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:62:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/train_multiscale_v2.py:78:        checkpoint["model"].state_dict(),
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:3:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:4:import csv
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:5:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:7:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:8:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:9:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:10:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:12:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:13:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:26:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:27:VINT_CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:52:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:54:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:55:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:92:def load_checkpoint(path):
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:94:        raise FileNotFoundError(f"Missing checkpoint: {path}")
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:99:        weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:126:    Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000/manifest.json"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:137:        f"Data leakage: {len(overlap)} trajectories occur in both datasets."
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:160:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:163:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:178:vint.load_state_dict(checkpoint["model"].state_dict(), strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:189:multi_saved = load_checkpoint(MULTISCALE_CHECKPOINT)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_go_stanford.py:194:base_saved = load_checkpoint(BASELINE_CHECKPOINT)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:2:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:3:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:8:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:9:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:17:VINT_CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:18:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:38:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:39:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:61:vint_checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:62:    VINT_CHECKPOINT, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:77:    vint_checkpoint["model"].state_dict(), strict=True
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:82:    OLD_CHECKPOINT, map_location=DEVICE, weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_multiscale_full.py:85:    NEW_CHECKPOINT, map_location=DEVICE, weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:2:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:3:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:5:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:6:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:7:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:8:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:15:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/pilot_dataset"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:17:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:18:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:29:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:31:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:32:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:50:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:51:    CHECKPOINT, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:66:model.load_state_dict(checkpoint["model"].state_dict(), strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:69:decoder_checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:72:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions.py:76:decoder.load_state_dict(decoder_checkpoint["decoder"])
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:1:import json
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:2:import sys
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:3:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:5:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:6:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:7:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:8:import matplotlib.pyplot as plt
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:10:from PIL import Image
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:11:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:15:LABEL_ROOT = Path.home() / "GENIE-SAMTP/experiments/dataset_v2_1000"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:17:CHECKPOINT = REPO / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:18:CONFIG = REPO / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:29:sys.path.insert(0, str(REPO / "train"))
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:31:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:32:import importlib.util
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:50:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:51:    CHECKPOINT, map_location="cpu", weights_only=False
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:66:model.load_state_dict(checkpoint["model"].state_dict(), strict=True)
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:69:decoder_checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:72:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/visualize_predictions_v2.py:76:decoder.load_state_dict(decoder_checkpoint["decoder"])
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:1:import os
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:2:import random
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:3:import pickle
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:4:from pathlib import Path
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:6:import numpy as np
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:7:import torch
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:8:import yaml
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:9:from torch.utils.data import DataLoader
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:10:from torchvision import transforms
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:12:from vint_train.models.vint.vint import ViNT
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:13:from vint_train.data.vint_dataset import ViNT_Dataset
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:15:from experiments.traversability.integrated.vint_traversability_conditioned import (
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:30:VINT_CKPT = ROOT / "deployment/model_weights/vint.pth"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:35:CONFIG_PATH = ROOT / "train/config/vint.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:36:DATA_CONFIG_PATH = ROOT / "train/vint_train/data/data_config.yaml"
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:138:# Load configuration
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:156:    dataset_name="go_stanford",
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:233:# Build datasets
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:236:print("Building ViNT datasets and image caches...")
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:290:checkpoint = torch.load(
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:293:    weights_only=False,
+/home/dml/vint-research-public/source_snapshot/experiments/traversability/integrated/train_conditioned.py:296:saved_model = checkpoint.get("model", checkpoint.get("state_dict"))
+
+========================================
+5. EXISTING DEPENDENCY FILES
+========================================
+/home/dml/visualnav-transformer/train/setup.py
+
+========================================
+6. GIT STATUS
+========================================
+?? experiments/
+?? extract_vint_features.py
+?? test_vint_inference.py
+?? train/config/go_stanford_finetune.yaml
+?? train/vint_train/models/vint/traversability_baseline.py
+?? train/vint_train/models/vint/vint.py.before_distillation_fix
+?? traversability_baseline/
+origin	https://github.com/robodhruv/visualnav-transformer.git (fetch)
+origin	https://github.com/robodhruv/visualnav-transformer.git (push)
